@@ -134,14 +134,22 @@ void MainFrame::OnExit(const wxCommandEvent& evt)
 
 void MainFrame::New(const wxCommandEvent& evt)
 {
-	wxMessageBox("reached New");
-
+	if (!isSaved) {
+		int response = wxMessageBox(wxT("The current file isn't saved\nAre you sure you want to exit?"), wxT("Exit"), wxYES_NO);
+		if (response == wxYES) { 
+			MainFrame* mf = new MainFrame("Kext Editor");
+			mf->Show();
+			mf->Center();
+			this->Close(); 
+		}
+	}
 }
 
 void MainFrame::NewFile(const wxCommandEvent& evt)
 {
-	wxMessageBox("reached NewFile");
-
+	MainFrame* mf = new MainFrame("Kext Editor");
+	mf->Show();
+	mf->Center();
 }
 
 void MainFrame::OpenFile(const wxCommandEvent& evt)
